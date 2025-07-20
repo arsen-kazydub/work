@@ -1,0 +1,29 @@
+/* Extra small (default) — no media query needed */
+@media (min-width: 576px) { } /* Small (sm) */
+@media (min-width: 768px) { } /* Medium (md) */
+@media (min-width: 992px) { } /* Large (lg) */
+@media (min-width: 1200px) { } /* Extra large (xl) */
+@media (min-width: 1400px) { } /* XXL */
+
+:root {
+  --spacing: 2rem;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  min-width: 320px;
+  font-family: Roboto, Arial, sans-serif;
+}
+#wrapper {
+  padding: var(--spacing);
+}
+h1 {
+  margin-bottom: var(--spacing);
+  text-align: center;
+}
