@@ -94,12 +94,12 @@ require_once __DIR__ . '/../_shared/header.php';
     // Initialization
     document.addEventListener('DOMContentLoaded', () => {
       const root = document.getElementById('mortgage-calculator');
-      if (root) {
-        new MortgageCalculator(root, {
-          price: 500000,
-          maxPrice: 1000000,
-        });
-      }
+      if (!root) return;
+
+      new MortgageCalculator(root, {
+        price: 500000,
+        maxPrice: 1000000,
+      });
     });
   </script>
 
