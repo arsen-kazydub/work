@@ -2,7 +2,6 @@ class MortgageCalculator {
   constructor(root, options = {}) {
     this.root = root;
 
-    // Options
     this.options = {
       // the initial values
       price: 1000000,
@@ -24,11 +23,6 @@ class MortgageCalculator {
       ...options
     };
 
-    // Elements for displaying results
-    this.elMonthlyPayment = document.querySelector('#mc-monthly-payment');
-    this.elTotalPayment = document.querySelector('#mc-total-payment');
-
-    // Inputs and sliders
     this.priceInput = root.querySelector('#mc-price-input');
     this.priceSlider = root.querySelector('#mc-price-slider');
 
@@ -42,6 +36,30 @@ class MortgageCalculator {
     this.interestRateInput = root.querySelector('#mc-interest-rate-input');
     this.interestRateSlider = root.querySelector('#mc-interest-rate-slider');
 
+    this.elMonthlyPayment = document.querySelector('#mc-monthly-payment');
+    this.elTotalPayment = document.querySelector('#mc-total-payment');
+
+    const requiredElements = [
+      this.priceInput,
+      this.priceSlider,
+      this.downPaymentInput,
+      this.downPaymentSlider,
+      this.downPaymentPercents,
+      this.loanPeriodInput,
+      this.loanPeriodSlider,
+      this.interestRateInput,
+      this.interestRateSlider,
+      this.elMonthlyPayment,
+      this.elTotalPayment,
+    ];
+
+    // abort if any required element is missing
+    if (requiredElements.some(el => !el)) {
+      console.warn('MortgageCalculator: Missing required elements.');
+      return;
+    }
+
+    // group inputs and sliders for easier event handling
     this.inputs = [this.priceInput, this.downPaymentInput, this.loanPeriodInput, this.interestRateInput];
     this.sliders = [this.priceSlider, this.downPaymentSlider, this.loanPeriodSlider, this.interestRateSlider];
 
@@ -50,7 +68,7 @@ class MortgageCalculator {
 
 
   init() {
-    // Set slider ranges
+    // set slider ranges
     this.priceSlider.min = this.options.minPrice;
     this.priceSlider.max = this.options.maxPrice;
 
@@ -62,7 +80,7 @@ class MortgageCalculator {
     this.interestRateSlider.min = this.options.minInterestRate;
     this.interestRateSlider.max = this.options.maxInterestRate;
 
-    // Set initial values
+    // set initial values
     this.priceInput.value = this.formatMonetaryValue(this.options.price);
     this.priceSlider.value = this.options.price;
 
@@ -79,7 +97,7 @@ class MortgageCalculator {
     this.updateDownPaymentPercentsLabel();
     this.displayResult();
 
-    // User uses an input - calculate on blur and on pressing the Enter key
+    // when an input is used - calculate on blur and on pressing the Enter key
     this.inputs.forEach(input => {
       input.addEventListener('blur', this.handleInputChange);
       input.addEventListener('keydown', (event) => {
@@ -87,7 +105,7 @@ class MortgageCalculator {
       });
     });
 
-    // User uses a slider - update a corresponding input's value
+    // when a slider is used - update a corresponding input's value
     this.sliders.forEach(slider => {
       slider.addEventListener('input', this.handleSliderChange);
     });
@@ -100,7 +118,7 @@ class MortgageCalculator {
   }
 
 
-  // Make sure provided input values are in the range of the corresponding slider
+  // Ensures input values are in the corresponding slider's range
   clampInputValue = (input, slider) => {
     const value = this.getInputValue(input);
     const min = parseInt(slider.min);
@@ -176,7 +194,7 @@ class MortgageCalculator {
       input.value = this.formatMonetaryValue(input.value);
     }
 
-    // if the price is changing, we update the value of the down payment too
+    // if the price is changing, update the value of the down payment too
     if (input === this.priceInput) {
       this.synchronizeDownPaymentInputAndSliderWithPrice();
     }
@@ -212,7 +230,7 @@ class MortgageCalculator {
   }
 
 
-  // Returns the monthly payment for a mortgage.
+  // Returns the mortgage monthly payment
   calcMonthlyPayment(price, downPayment, loanPeriod, interestRate) {
     const loanAmount = price - downPayment;
     const yearlyRate = interestRate / 100;
@@ -223,14 +241,14 @@ class MortgageCalculator {
   }
 
 
-  // Returns the total payment for a mortgage.
+  // Returns the mortgage total payment
   calcTotalPayment(monthlyPayment, loanPeriod) {
     const numberOfPayments = loanPeriod * 12;
     return monthlyPayment * numberOfPayments;
   }
 
 
-  // Update UI with mortgage calculations
+  // Updates UI with mortgage calculations
   displayResult() {
     // get values as integers
     const price = this.getInputValue(this.priceInput);
