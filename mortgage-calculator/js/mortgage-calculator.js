@@ -45,6 +45,11 @@ class MortgageCalculator {
     this.inputs = [this.priceInput, this.downPaymentInput, this.loanPeriodInput, this.interestRateInput];
     this.sliders = [this.priceSlider, this.downPaymentSlider, this.loanPeriodSlider, this.interestRateSlider];
 
+    this.init();
+  }
+
+
+  init() {
     // Set slider ranges
     this.priceSlider.min = this.options.minPrice;
     this.priceSlider.max = this.options.maxPrice;
