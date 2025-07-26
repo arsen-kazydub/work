@@ -55,7 +55,7 @@ class MortgageCalculator {
     ];
 
     if (requiredElements.some(el => !el)) {
-      console.warn('MortgageCalculator: Missing required elements.');
+      console.error('MortgageCalculator: Missing required elements.');
       return;
     }
 
