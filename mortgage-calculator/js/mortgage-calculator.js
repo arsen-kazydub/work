@@ -23,22 +23,23 @@ class MortgageCalculator {
       ...options
     };
 
-    this.priceInput = root.querySelector('#mc-price-input');
-    this.priceSlider = root.querySelector('#mc-price-slider');
+    this.priceInput = this.root.querySelector('#mc-price-input');
+    this.priceSlider = this.root.querySelector('#mc-price-slider');
 
-    this.downPaymentInput = root.querySelector('#mc-down-payment-input');
-    this.downPaymentSlider = root.querySelector('#mc-down-payment-slider');
-    this.downPaymentPercents = root.querySelector('#mc-down-payment-addon');
+    this.downPaymentInput = this.root.querySelector('#mc-down-payment-input');
+    this.downPaymentSlider = this.root.querySelector('#mc-down-payment-slider');
+    this.downPaymentPercents = this.root.querySelector('#mc-down-payment-addon');
 
-    this.loanPeriodInput = root.querySelector('#mc-loan-period-input');
-    this.loanPeriodSlider = root.querySelector('#mc-loan-period-slider');
+    this.loanPeriodInput = this.root.querySelector('#mc-loan-period-input');
+    this.loanPeriodSlider = this.root.querySelector('#mc-loan-period-slider');
 
-    this.interestRateInput = root.querySelector('#mc-interest-rate-input');
-    this.interestRateSlider = root.querySelector('#mc-interest-rate-slider');
+    this.interestRateInput = this.root.querySelector('#mc-interest-rate-input');
+    this.interestRateSlider = this.root.querySelector('#mc-interest-rate-slider');
 
-    this.elMonthlyPayment = document.querySelector('#mc-monthly-payment');
-    this.elTotalPayment = document.querySelector('#mc-total-payment');
+    this.elMonthlyPayment = this.root.querySelector('#mc-monthly-payment');
+    this.elTotalPayment = this.root.querySelector('#mc-total-payment');
 
+    // abort if any required element is missing
     const requiredElements = [
       this.priceInput,
       this.priceSlider,
@@ -53,7 +54,6 @@ class MortgageCalculator {
       this.elTotalPayment,
     ];
 
-    // abort if any required element is missing
     if (requiredElements.some(el => !el)) {
       console.warn('MortgageCalculator: Missing required elements.');
       return;
